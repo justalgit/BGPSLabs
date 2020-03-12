@@ -1,13 +1,13 @@
 CREATE TABLE study_group
 (
-    id INT NOT NULL,
+    id INT AUTO_INCREMENT NOT NULL,
     name TEXT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE student
 (
-    id INT NOT NULL,
+    id INT AUTO_INCREMENT NOT NULL,
     study_group_id INT NOT NULL,
     surname TEXT NULL,
     name TEXT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE student
 
 CREATE TABLE study_plan
 (
-    id INT NOT NULL,
+    id INT AUTO_INCREMENT NOT NULL,
     exam_type_id INT NOT NULL,
     subject_id INT NOT NULL,
     PRIMARY KEY (id)
@@ -25,7 +25,7 @@ CREATE TABLE study_plan
 
 CREATE TABLE subject
 (
-    id INT NOT NULL,
+    id INT AUTO_INCREMENT NOT NULL,
     name TEXT NULL,
     short_name TEXT NULL,
     PRIMARY KEY (id)
@@ -33,14 +33,14 @@ CREATE TABLE subject
 
 CREATE TABLE exam_type
 (
-    id INT NOT NULL,
+    id INT AUTO_INCREMENT NOT NULL,
     type TEXT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE journal
 (
-    id INT NOT NULL,
+    id INT AUTO_INCREMENT NOT NULL,
     study_plan_id INT NOT NULL,
     mark_id INT NOT NULL,
     journal_id INT NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE journal
 
 CREATE TABLE mark
 (
-    id INT NOT NULL,
+    id INT AUTO_INCREMENT NOT NULL,
     name TEXT NULL,
     value TEXT NULL,
     PRIMARY KEY (id)
