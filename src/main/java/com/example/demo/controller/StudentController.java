@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -34,7 +36,7 @@ public class StudentController {
     }
 
     //Просмотр студентов по группе
-    @GetMapping("/study-group-id/{id}")
+    @GetMapping("/study-group/{id}")
     public List<Student> getStudyGroupId(@PathVariable int id) {
         return studentJdbc.getStudyGroupId(id);
     }

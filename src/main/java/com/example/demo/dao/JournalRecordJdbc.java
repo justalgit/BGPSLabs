@@ -1,8 +1,10 @@
 package com.example.demo.dao;
 
+import com.example.demo.model.JournalFull;
 import com.example.demo.model.JournalRecord;
 import com.example.demo.model.Student;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -57,14 +59,13 @@ public class JournalRecordJdbc {
         );
     }
 
-    public List<JournalRecord> getAllByStudyGroup(int studyGroupId) {
-        return jdbcTemplate.query(
-                "SELECT journal.id, student_id, study_plan_id, in_time, count, mark_id " +
-                        "FROM journal INNER JOIN student ON journal.student_id = student.id " +
-                        "WHERE study_group_id = ?",
-                this::mapJournalRecord,
-                studyGroupId
-        );
+    public List<JournalFull> getAllByStudyGroup(int study_group_id) {
+        return jdbcTemplate.query("SELECT journal.id, journal.student_id, journal.study_plan_id," +
+                "       journal.in_time, journal.count, journal.mark_id, mark.name, mark.value, study_plan.exam_type_id, study_plan.subject_id, exam_type.type, subject.name full_name, subject.short_name " +
+                " FROM ((((journal INNER JOIN mark ON journal.mark_id = mark.id) INNER JOIN study_plan ON journal.study_plan_id = study_plan.id) " +
+                "INNER JOIN exam_type ON study_plan.exam_type_id = exam_type.id) INNER JOIN subject ON study_plan.subject_id = subject.id) " +
+                " INNER JOIN student ON journal.student_id = student.id " +
+                " WHERE study_group_id = ?", ROW_MAPPER_BY_STUDY_GROUP, study_group_id);
     }
 
     public int update(int id, JournalRecord journalRecord) {
@@ -97,4 +98,22 @@ public class JournalRecordJdbc {
                 rs.getInt("mark_id")
         );
     }
+
+    RowMapper<JournalFull> ROW_MAPPER_BY_STUDY_GROUP = (ResultSet rs, int rowNum) -> {
+        return new JournalFull(
+                rs.getInt("id"),
+                rs.getInt("student_id"),
+                rs.getInt("study_plan_id"),
+                rs.getBoolean("in_time"),
+                rs.getInt("count"),
+                rs.getInt("mark_id"),
+                rs.getString("name"),
+                rs.getString("value"),
+                rs.getInt("exam_type_id"),
+                rs.getInt("subject_id"),
+                rs.getString("type"),
+                rs.getString("full_name"),
+                rs.getString("short_name")
+        );
+    };
 }

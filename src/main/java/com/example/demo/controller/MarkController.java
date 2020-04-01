@@ -2,9 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.dao.MarkJdbc;
 import com.example.demo.model.Mark;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+@CrossOrigin(origins = "http://localhost:3000")
 
 @RestController
 public class MarkController {

@@ -1,11 +1,14 @@
 package com.example.demo.controller;
 
 import com.example.demo.dao.JournalRecordJdbc;
+import com.example.demo.model.JournalFull;
 import com.example.demo.model.JournalRecord;
 import com.example.demo.model.Student;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:3000")
 
 @RequestMapping("/journal")
 @RestController
@@ -36,7 +39,7 @@ public class JournalRecordController {
 
     //Просмотр записей по группе
     @GetMapping("/study-group/{studyGroupId}")
-    public List<JournalRecord> getJournalRecordsByStudyGroup(@PathVariable int studyGroupId) {
+    public List<JournalFull> getJournalRecordsByStudyGroup(@PathVariable int studyGroupId) {
         return journalRecordJdbc.getAllByStudyGroup(studyGroupId);
     }
 
