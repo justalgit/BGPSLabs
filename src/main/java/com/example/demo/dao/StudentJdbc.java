@@ -36,6 +36,10 @@ public class StudentJdbc {
         return jdbcTemplate.query("SELECT * FROM STUDENT", this::mapStudent);
     }
 
+    public List<Student> getAllLocal() {
+        return jdbcTemplate.query("SELECT * FROM student_local", this::mapStudent);
+    }
+
     public int create(Student student) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("surname", student.getSurname());
